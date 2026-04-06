@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  service1:
+    build: ./service1
+    container_name: service1
+
+  service2:
+    build: ./service2
+    container_name: service2
+
+  service3:
+    build: ./service3
+    container_name: service3
+
+  gateway:
+    image: nginx:alpine
+    container_name: nginx-gateway
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - service1
+      - service2
+      - service3
